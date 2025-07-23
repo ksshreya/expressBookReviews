@@ -14,7 +14,7 @@ app.use("/customer/auth/*", function auth(req, res, next) {
     //Write the authenication mechanism here
     if (req.session.authorization) {
         let token = req.session.authorization['accessToken'];
-        jwt.verify(token, 'fingerprint_customer', (err, user) => {
+        jwt.verify(token, 'access', (err, user) => {
             if (!err) {
                 req.user = user;
                 next();
@@ -32,4 +32,4 @@ const PORT = 3000;
 app.use("/customer", customer_routes);
 app.use("/", genl_routes);
 
-app.listen(PORT, () => console.log("Server is running"));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
